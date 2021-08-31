@@ -108,13 +108,13 @@ s! {
 
     pub struct sched_param {
         pub sched_priority: ::c_int,
-        #[cfg(any(target_env = "musl", target_os = "emscripten"))]
+        #[cfg(any(target_env = "musl", target_env = "fortanixvme", target_os = "emscripten"))]
         pub sched_ss_low_priority: ::c_int,
-        #[cfg(any(target_env = "musl", target_os = "emscripten"))]
+        #[cfg(any(target_env = "musl", target_env = "fortanixvme", target_os = "emscripten"))]
         pub sched_ss_repl_period: ::timespec,
-        #[cfg(any(target_env = "musl", target_os = "emscripten"))]
+        #[cfg(any(target_env = "musl", target_env = "fortanixvme", target_os = "emscripten"))]
         pub sched_ss_init_budget: ::timespec,
-        #[cfg(any(target_env = "musl", target_os = "emscripten"))]
+        #[cfg(any(target_env = "musl", target_env = "fortanixvme", target_os = "emscripten"))]
         pub sched_ss_max_repl: ::c_int,
     }
 
@@ -216,6 +216,7 @@ s_no_extra_traits! {
             all(
                 target_arch = "x86",
                 not(target_env = "musl"),
+                not(target_env = "fortanixvme"),
                 not(target_os = "android")),
             target_arch = "x86_64"),
         repr(packed))]
@@ -973,7 +974,7 @@ pub const TCP_QUICKACK: ::c_int = 12;
 pub const TCP_CONGESTION: ::c_int = 13;
 pub const TCP_MD5SIG: ::c_int = 14;
 cfg_if! {
-    if #[cfg(all(target_os = "linux", any(target_env = "gnu", target_env = "musl")))] {
+    if #[cfg(all(target_os = "linux", any(target_env = "gnu", target_env = "musl", target_env = "fortanixvme")))] {
         // WARN: deprecated
         pub const TCP_COOKIE_TRANSACTIONS: ::c_int = 15;
     }
@@ -1814,7 +1815,7 @@ cfg_if! {
     if #[cfg(target_os = "emscripten")] {
         mod emscripten;
         pub use self::emscripten::*;
-    } else if #[cfg(target_os = "linux")] {
+    } else if #[cfg(any(target_os = "linux", target_env = "fortanixvme"))] {
         mod linux;
         pub use self::linux::*;
     } else if #[cfg(target_os = "l4re")] {
