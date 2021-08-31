@@ -466,9 +466,9 @@ s! {
         __pgrp: ::pid_t,
         __sd: ::sigset_t,
         __ss: ::sigset_t,
-        #[cfg(any(target_env = "musl", target_env = "ohos"))]
+        #[cfg(any(target_env = "musl", target_env = "fortanixvme", target_env = "ohos"))]
         __prio: ::c_int,
-        #[cfg(not(any(target_env = "musl", target_env = "ohos")))]
+        #[cfg(not(any(target_env = "musl", target_env = "fortanixvme", target_env = "ohos")))]
         __sp: ::sched_param,
         __policy: ::c_int,
         __pad: [::c_int; 16],
@@ -1256,7 +1256,7 @@ cfg_if! {
 }
 
 cfg_if! {
-    if #[cfg(any(target_env = "gnu", target_env = "musl", target_env = "ohos"))] {
+    if #[cfg(any(target_env = "fortanixvme", target_env = "gnu", target_env = "musl", target_env = "ohos"))] {
         pub const ABDAY_1: ::nl_item = 0x20000;
         pub const ABDAY_2: ::nl_item = 0x20001;
         pub const ABDAY_3: ::nl_item = 0x20002;
@@ -4237,7 +4237,7 @@ cfg_if! {
 
 extern "C" {
     #[cfg_attr(
-        not(any(target_env = "musl", target_env = "ohos")),
+        not(any(target_env = "fortanixvme", target_env = "musl", target_env = "ohos")),
         link_name = "__xpg_strerror_r"
     )]
     pub fn strerror_r(errnum: ::c_int, buf: *mut c_char, buflen: ::size_t) -> ::c_int;
@@ -4890,7 +4890,7 @@ cfg_if! {
     if #[cfg(target_env = "uclibc")] {
         mod uclibc;
         pub use self::uclibc::*;
-    } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
+    } else if #[cfg(any(target_env = "fortanixvme", target_env = "musl", target_env = "ohos"))] {
         mod musl;
         pub use self::musl::*;
     } else if #[cfg(target_env = "gnu")] {
