@@ -765,7 +765,8 @@ cfg_if! {
                  target_arch = "aarch64",
                  target_arch = "mips64",
                  target_arch = "powerpc64",
-                 target_arch = "s390x"))] {
+                 target_arch = "s390x",
+                 target_env = "fortanixvme"))] {
         mod b64;
         pub use self::b64::*;
     } else if #[cfg(any(target_arch = "x86",
