@@ -97,7 +97,7 @@ cfg_if! {
                      target_arch = "aarch64",
                      target_arch = "csky",
                      target_arch = "loongarch64"),
-                 not(any(target_env = "musl", target_env = "ohos"))))] {
+                 not(any(target_env = "fortanixvme", target_env = "musl", target_env = "ohos"))))] {
         pub const SO_TIMESTAMP_NEW: ::c_int = 63;
         pub const SO_TIMESTAMPNS_NEW: ::c_int = 64;
         pub const SO_TIMESTAMPING_NEW: ::c_int = 65;
@@ -261,7 +261,7 @@ cfg_if! {
         #[deprecated(since = "0.2.64", note = "Not stable across OS versions")]
         pub const RLIMIT_NLIMITS: ::__rlimit_resource_t = RLIM_NLIMITS;
 
-    } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
+    } else if #[cfg(any(target_env = "fortanixvme", target_env = "musl", target_env = "ohos"))] {
 
         pub const RLIMIT_CPU: ::c_int = 0;
         pub const RLIMIT_FSIZE: ::c_int = 1;
