@@ -8,7 +8,12 @@ toolchain=
 if [ -n "$TOOLCHAIN" ]; then
   toolchain=$TOOLCHAIN
 else
-  toolchain=nightly
+  # Pin the nightly version as newer nightly versions break CI,
+  # https://github.com/rust-lang/rust/issues/103673 contains related information.
+  case "$TARGET" in
+    *android*) toolchain=nightly-2022-10-09;;
+    *) toolchain=nightly;;
+  esac
 fi
 if [ "$OS" = "windows" ]; then
   : "${TARGET?The TARGET environment variable must be set.}"
@@ -24,6 +29,11 @@ fi
 if [ -n "$TARGET" ]; then
   echo "Install target"
   rustup target add "$TARGET"
+fi
+
+if [ -n "$INSTALL_RUST_SRC" ]; then
+  echo "Install rust-src"
+  rustup component add rust-src
 fi
 
 if [ "$OS" = "windows" ]; then

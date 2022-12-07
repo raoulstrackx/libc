@@ -2,7 +2,6 @@ B2500000
 B3000000
 B3500000
 B4000000
-BOTHER
 CIBAUD
 CS
 DS
@@ -212,7 +211,6 @@ fsblkcnt64_t
 fsfilcnt64_t
 getcontext
 greg_t
-ip_mreqn
 makecontext
 max_align_t
 mcontext_t
