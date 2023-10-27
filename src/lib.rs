@@ -8,6 +8,7 @@
 #![allow(
     renamed_and_removed_lints, // Keep this order.
     unknown_lints, // Keep this order.
+    unexpected_cfgs,
     bad_style,
     overflowing_literals,
     improper_ctypes,
