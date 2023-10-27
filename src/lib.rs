@@ -6,6 +6,7 @@
 #![crate_name = "libc"]
 #![crate_type = "rlib"]
 #![allow(
+    dead_code,
     renamed_and_removed_lints, // Keep this order.
     unknown_lints, // Keep this order.
     unexpected_cfgs,
