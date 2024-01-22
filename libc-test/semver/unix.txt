@@ -451,7 +451,10 @@ access
 addrinfo
 alarm
 atexit
+atof
 atoi
+atol
+atoll
 bind
 blkcnt_t
 blksize_t
@@ -668,6 +671,7 @@ protoent
 pselect
 pthread_attr_destroy
 pthread_attr_init
+pthread_attr_getstacksize
 pthread_attr_setdetachstate
 pthread_attr_setstacksize
 pthread_attr_t
@@ -818,7 +822,9 @@ strtod
 strtof
 strtok
 strtol
+strtoll
 strtoul
+strtoull
 strxfrm
 suseconds_t
 symlink
